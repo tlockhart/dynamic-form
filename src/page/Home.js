@@ -52,6 +52,14 @@ function Home(props) {
     setSelectedValues([]);
   };
 
+  const handleClose = (e) => {
+      e.preventDefault();
+      //close modal
+      setShowUserModal(false);
+      // reset Selected values
+      setSelectedValues([]);
+  }
+
   // Render Emails
   const renderEmails = () => {
     return selectedValues.map((item, index) => {
@@ -89,7 +97,7 @@ function Home(props) {
         // Display Modal
         <Modal
           header="Invite Contacts"
-          handleCloseModal={() => setShowUserModal(false)}
+          handleCloseModal={handleClose}
           handleSendData={retrieveSelectedContacts}
           handleSubmit={handleSubmit}
         >

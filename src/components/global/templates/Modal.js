@@ -5,24 +5,6 @@ import { useForm } from "react-hook-form";
 
 const Modal = (props) => {
   
-  // Create submitFormHandler
-//   const submitForm = (data) => {
-//     //All inputs are passed back as the data argument
-//     console.log(data);
-//   };
-
-
-//   const withProps=(WrappedComponent, data) =>{
-//     return function ComponentWithProps() {
-//         return (
-//             <SuperSelector
-//             component={WrappedComponent}
-//             />
-//         )
-//     }
-// }
-
-// const SelectorWithProps = withProps(props.inputObject.userSelect);
 
 return (
     <form onSubmit={(e)=>props.handleSubmit(e)}>
