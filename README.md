@@ -9,7 +9,9 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:3000](http://localhost:3000) to view the wrapper component example
+
+Open [http://localhost:3000/super](http://localhost:3000/super) to view the Super component example
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
