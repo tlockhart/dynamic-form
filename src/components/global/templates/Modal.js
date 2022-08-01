@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import SuperSelector from "../hoc/SuperSelector";
 // react-hook-form
@@ -18,7 +19,10 @@ return (
       >
         <div className="form-group">
           <label></label>
+          
+          {/* RENDER CHILDREN */}
          { props.children}
+
         </div>
       </div>
 

@@ -4,37 +4,23 @@ import Select from "../components/global/inputs/CustomSelect";
 import ComponentsRenderer from "../components/global/templates/ComponentsRenderer";
 import NewSearch from "../components/global/inputs/NewSearch";
 import SearchFilterAction from "../components/global/inputs/SearchFilterAction";
+import {useBuildComponents} from "../components/global/hooks/useBuildComponents";
+import data from "../utils/data";
 
 function Home(props) {
-  // constants
-  const data = [
-    {
-      id: "0",
-      label: "Jane Doe",
-      value: "JaneDoe@hotmail.com",
-    },
-    {
-      id: "1",
-      label: "John Doe",
-      value: "JohnDoe@hotmail.com",
-    },
-  ];
+  
 
   const defaultValues = data[0];
 
   // state
   const [emailContacts, setEmailContacts] = useState(data);
   const [showUserModal, setShowUserModal] = useState(false);
+  
   // set value for default selection
   const [selectedValues, setSelectedValues] = useState([]);
-
-  useEffect(() => {
-    console.log("UseEffect Email Contacts:", emailContacts);
-    console.log("UseEffect selectedValues:", selectedValues);
-  }, []);
-
+   
   // handle onChange event of the dropdown
-  const handleChange = (e) => {
+   const handleChange = (e) => {
     console.log("HandleChangeCalled:", e);
     setSelectedValues(
       // Array.isArray(e)
@@ -46,12 +32,47 @@ function Home(props) {
       //   :  []
       e
     );
-    console.log("HandleChange NewSelectedValues:", selectedValues)
+    console.log("HandleChange NewSelectedValues:", selectedValues);
   };
 
   const retrieveSelectedContacts = (data) => {
     console.log("retreiveSelectecContacts:", data);
   };
+
+  const componentDefinitions = [
+    {
+      name: Select,
+      props: {
+        type: "selector",
+        defaultValues: selectedValues.length > 0 ? selectedValues : defaultValues,
+        options: emailContacts,
+        retrieveSelections: retrieveSelectedContacts,
+        handleChange: handleChange,
+        // values: selectedValues,
+        class: "selector-input",
+        color: "blue"
+      }
+    },
+    {
+      name: SearchFilterAction,
+      props: {
+        type: "searchFilter",
+        data: emailContacts,
+        class: "searchFilter-input",
+        color: "hotpink"
+      }
+    }
+  ];
+  
+  const [componentsArray, setComponentsArray] = useBuildComponents(componentDefinitions);
+
+  
+  useEffect(() => {
+    console.log("UseEffect Email Contacts:", emailContacts);
+    console.log("UseEffect selectedValues:", selectedValues);
+  }, []);
+
+ 
 
   // Send the data to the backend and close modal
   const handleSubmit = (e) => {
@@ -78,31 +99,6 @@ function Home(props) {
       return index < selectedValues.length - 1 ? item.value + ", " : item.value;
     });
   };
- 
-  // Default Input components to display on form
-  const SearchFilter = (
-    <SearchFilterAction 
-      type="searchFilter"
-      data={emailContacts} 
-    />);
-
-  const Selector = (
-    <Select
-      type="selector"
-      defaultValues={defaultValues}
-      options={emailContacts}
-      retrieveSelections={retrieveSelectedContacts}
-      handleChange={handleChange}
-      values={selectedValues}
-    />);
-
-    // In react components are rendered with functions
-  const getSearchFilter = () => SearchFilter;
-  const getSelector = () => Selector
-  const components = [
-    getSelector,
-    getSearchFilter
-  ];
 
   return (
     <div>
@@ -122,7 +118,8 @@ function Home(props) {
           handleSubmit={handleSubmit}
         >
           <ComponentsRenderer
-            components={components} />
+            components={componentsArray}
+          />
         </Modal>
       ) : null}
       <div>
