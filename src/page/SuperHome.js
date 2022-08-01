@@ -119,16 +119,17 @@ function SuperHome(props) {
         </button>
       </div>
       {/*Display Modal*/}
-      <SuperForm
+      {showUserModal === true && componentsArray.length > 0
+        ? <SuperForm
         handleSubmit={handleSubmit}
         submitForm={handleChange}
         errors={errors}
 
       >
-      {showUserModal === true && componentsArray.length > 0
-        ? ComponentWithUseForm()
-        : null}
+      ComponentWithUseForm()
+        
         </SuperForm>
+        : null}
       <div>
         <b>Selected Value: </b>
         {renderEmails()}
