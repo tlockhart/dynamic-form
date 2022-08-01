@@ -126,7 +126,7 @@ function SuperHome(props) {
         errors={errors}
 
       >
-      ComponentWithUseForm()
+      {ComponentWithUseForm()}
         
         </SuperForm>
         : null}
